@@ -38,6 +38,7 @@ export type EmployeeFormData = Omit<Employee, 'id' | 'createdAt' | 'updatedAt'>;
 export interface EmployeeFilters {
   search?: string;
   department?: Department | 'all';
+  countries?: string[];
   status?: EmployeeStatus | 'all';
   sortBy?: 'firstName' | 'lastName' | 'startDate' | 'salary';
   sortOrder?: 'asc' | 'desc';

@@ -100,7 +100,7 @@ class EmployeeService {
           emp.firstName.toLowerCase().includes(searchLower) ||
           emp.lastName.toLowerCase().includes(searchLower) ||
           emp.email.toLowerCase().includes(searchLower) ||
-          emp.position.toLowerCase().includes(searchLower)
+          emp.department.toLowerCase().includes(searchLower)
       );
     }
 
@@ -108,8 +108,10 @@ class EmployeeService {
       filtered = filtered.filter(emp => emp.department === filters.department);
     }
 
-    if (filters.status && filters.status !== 'all') {
-      filtered = filtered.filter(emp => emp.status === filters.status);
+    if (filters.countries && filters.countries.length > 0) {
+      filtered = filtered.filter(
+        emp => emp.country && filters.countries!.includes(emp.country)
+      );
     }
 
     if (filters.sortBy) {

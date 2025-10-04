@@ -78,7 +78,7 @@ export default function DashboardPage() {
                     : 'No hay empleados registrados'}
                 </p>
               </div>
-              <Link href="/employees">
+              <Link href="/dashboard/employees">
                 <Button className="bg-primary hover:bg-primary-dark text-white">
                   Ver Todos los Empleados
                   <ArrowRight className="ml-2 h-4 w-4" />
