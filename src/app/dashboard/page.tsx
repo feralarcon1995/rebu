@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useEmployees } from '@/lib/hooks/use-employees';
 import { motion } from 'framer-motion';
-import { ArrowRight, Users } from 'lucide-react';
+import { ArrowRight, Plus, Users } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
@@ -33,12 +33,20 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="space-y-2 text-center"
+          className="flex items-center justify-between"
         >
-          <h1 className="text-text-primary text-3xl font-bold">Dashboard</h1>
-          <p className="text-text-secondary">
-            Resumen general de empleados y estadísticas
-          </p>
+          <div className="space-y-2 text-center sm:text-left">
+            <h1 className="text-text-primary text-3xl font-bold">Dashboard</h1>
+            <p className="text-text-secondary">
+              Resumen general de empleados y estadísticas
+            </p>
+          </div>
+          <Link href="/dashboard/employees/new">
+            <Button className="bg-primary hover:bg-primary-dark flex items-center gap-2 text-white">
+              <Plus className="h-4 w-4" />
+              Nuevo Empleado
+            </Button>
+          </Link>
         </motion.div>
 
         <motion.div
@@ -97,7 +105,7 @@ export default function DashboardPage() {
                   <p className="text-text-secondary mb-4">
                     No hay empleados registrados
                   </p>
-                  <Link href="/employees">
+                  <Link href="/dashboard/employees/new">
                     <Button>
                       Agregar Primer Empleado
                       <ArrowRight className="ml-2 h-4 w-4" />

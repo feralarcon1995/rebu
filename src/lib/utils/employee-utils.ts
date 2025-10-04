@@ -1,4 +1,5 @@
 import type { Employee } from '@/lib/types/employee';
+import type { Country, Department } from '@/lib/validations/employee';
 
 export const getStatusColor = (status: Employee['status']) => {
   switch (status) {
@@ -56,3 +57,48 @@ export const countriesList = [
   { code: 'EC', name: 'Ecuador' },
   { code: 'SA', name: 'Arabia Saudita' },
 ];
+
+export const getCountryName = (countryCode: string) => {
+  const country = countriesList.find(c => c.code === countryCode);
+  return country ? country.name : countryCode;
+};
+export interface SelectOption<T = string> {
+  value: T;
+  label: string;
+}
+
+export const countryOptions: SelectOption<Country>[] = countriesList.map(
+  country => ({
+    value: country.code as Country,
+    label: country.name,
+  })
+);
+
+export const departmentOptions: SelectOption<Department>[] = [
+  { value: 'Engineering', label: 'Ingeniería' },
+  { value: 'Marketing', label: 'Marketing' },
+  { value: 'Sales', label: 'Ventas' },
+  { value: 'Human Resources', label: 'Recursos Humanos' },
+  { value: 'Finance', label: 'Finanzas' },
+  { value: 'Operations', label: 'Operaciones' },
+  { value: 'Customer Support', label: 'Soporte al Cliente' },
+  { value: 'Product', label: 'Producto' },
+  { value: 'Design', label: 'Diseño' },
+];
+
+export const statusOptions: SelectOption<'active' | 'inactive' | 'on-leave'>[] =
+  [
+    { value: 'active', label: 'Activo' },
+    { value: 'inactive', label: 'Inactivo' },
+    { value: 'on-leave', label: 'En Licencia' },
+  ];
+
+export const getCountryLabel = (countryCode: Country): string => {
+  const country = countryOptions.find(c => c.value === countryCode);
+  return country?.label ?? countryCode;
+};
+
+export const getDepartmentLabel = (departmentCode: Department): string => {
+  const department = departmentOptions.find(d => d.value === departmentCode);
+  return department?.label ?? departmentCode;
+};

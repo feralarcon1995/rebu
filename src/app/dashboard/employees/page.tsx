@@ -13,7 +13,7 @@ import { useEmployees } from '@/lib/hooks/use-employees';
 import { usePagination } from '@/lib/hooks/use-pagination';
 import type { Employee, EmployeeFilters } from '@/lib/types/employee';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Users } from 'lucide-react';
+import { ArrowLeft, Plus, Users } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState, useTransition } from 'react';
 import { toast } from 'sonner';
@@ -109,33 +109,39 @@ export default function EmployeesPage() {
   return (
     <DashboardLayout>
       <main className="mx-auto w-full max-w-7xl space-y-4 px-4 py-3 sm:space-y-6 sm:px-6 sm:py-4 lg:px-8 lg:py-6">
-        {/* Header with Back Button */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="flex items-center justify-between"
         >
-          <div>
-            <h1 className="text-text-primary text-3xl font-bold">
-              Lista de Empleados
-            </h1>
-            <p className="text-text-secondary">
-              Administra y organiza la información de tus empleados
-            </p>
+          <div className="flex items-center gap-4">
+            <Link href="/dashboard">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 border-gray-500 text-gray-700 transition-colors duration-300 ease-in-out hover:bg-gray-100 dark:border-green-300 dark:bg-green-100/10 dark:text-green-200 dark:hover:bg-green-200/20"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Volver al Dashboard
+              </Button>
+            </Link>
+            <div>
+              <h1 className="text-text-primary text-3xl font-bold">
+                Lista de Empleados
+              </h1>
+              <p className="text-text-secondary">
+                Administra y organiza la información de tus empleados
+              </p>
+            </div>
           </div>
-          <Link href="/dashboard">
-            <Button
-              variant="outline"
-              className="flex items-center gap-2 border-gray-500 text-gray-700 transition-colors duration-300 ease-in-out hover:bg-gray-100 dark:border-green-300 dark:bg-green-100/10 dark:text-green-200 dark:hover:bg-green-200/20"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Volver al Dashboard
+          <Link href="/dashboard/employees/new">
+            <Button className="bg-primary hover:bg-primary-dark flex items-center gap-2 text-white">
+              <Plus className="h-4 w-4" />
+              Nuevo Empleado
             </Button>
           </Link>
         </motion.div>
 
-        {/* Employees Directory */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -170,9 +176,20 @@ export default function EmployeesPage() {
               {isLoading && employees.length === 0 ? (
                 <EmployeeSkeleton />
               ) : employees.length === 0 ? (
-                <p className="text-text-secondary py-8 text-center text-sm sm:py-12 sm:text-base">
-                  No se encontraron empleados
-                </p>
+                <div className="py-8 text-center">
+                  <div className="bg-surface/50 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                    <Users className="text-text-secondary h-8 w-8" />
+                  </div>
+                  <p className="text-text-secondary mb-4">
+                    No se encontraron empleados
+                  </p>
+                  <Link href="/dashboard/employees/new">
+                    <Button>
+                      Crear Primer Empleado
+                      <Plus className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
               ) : (
                 <>
                   <EmployeeTable
