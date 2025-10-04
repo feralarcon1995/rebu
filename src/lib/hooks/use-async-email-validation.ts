@@ -7,20 +7,15 @@ export function useAsyncEmailValidation() {
 
   const validateEmailAsync = useCallback(
     async (email: string, excludeId?: string): Promise<string | undefined> => {
-      if (!email || !email.endsWith('@empresa.com')) {
+      if (!email.endsWith('@empresa.com')) {
         return undefined;
       }
 
       setIsValidating(true);
 
       try {
-        await new Promise(resolve => setTimeout(resolve, 500));
-
         const exists = await checkEmailExists(email, excludeId);
-        if (exists) {
-          return 'Este email ya está registrado';
-        }
-        return undefined;
+        return exists ? 'Este email ya está registrado' : undefined;
       } catch {
         return 'Error al validar email';
       } finally {
