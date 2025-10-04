@@ -18,6 +18,7 @@ import {
 } from '@/lib/utils/employee-utils';
 import { motion } from 'framer-motion';
 import { Eye, Pencil, Trash2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface EmployeeTableProps {
   employees: Employee[];
@@ -30,6 +31,12 @@ export function EmployeeTable({
   onDelete,
   showActions = true,
 }: EmployeeTableProps) {
+  const router = useRouter();
+
+  const handleViewEmployee = (id: string) => {
+    router.push(`/dashboard/employees/${id}`);
+  };
+
   if (employees.length === 0) {
     return (
       <motion.div
@@ -90,6 +97,7 @@ export function EmployeeTable({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
+                onClick={() => handleViewEmployee(employee.id)}
               >
                 <TableCell className="text-text-primary font-semibold">
                   {employee.firstName} {employee.lastName}
@@ -128,6 +136,10 @@ export function EmployeeTable({
                           variant="ghost"
                           size="sm"
                           className="hover:bg-primary/10 hover:text-primary h-8 w-8 cursor-pointer p-0"
+                          onClick={e => {
+                            e.stopPropagation();
+                            handleViewEmployee(employee.id);
+                          }}
                         >
                           <Eye className="h-4 w-4" />
                           <span className="sr-only">View</span>
@@ -141,6 +153,12 @@ export function EmployeeTable({
                           variant="ghost"
                           size="sm"
                           className="hover:bg-primary-dark/10 hover:text-primary-dark h-8 w-8 cursor-pointer p-0"
+                          onClick={e => {
+                            e.stopPropagation();
+                            router.push(
+                              `/dashboard/employees/${employee.id}/edit`
+                            );
+                          }}
                         >
                           <Pencil className="h-4 w-4" />
                           <span className="sr-only">Edit</span>
@@ -155,7 +173,10 @@ export function EmployeeTable({
                             variant="ghost"
                             size="sm"
                             className="h-8 w-8 cursor-pointer p-0 text-red-500 hover:bg-red-50 hover:text-red-600"
-                            onClick={() => onDelete(employee.id)}
+                            onClick={e => {
+                              e.stopPropagation();
+                              onDelete(employee.id);
+                            }}
                           >
                             <Trash2 className="h-4 w-4" />
                             <span className="sr-only">Delete</span>

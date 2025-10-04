@@ -57,7 +57,7 @@ function CountryMultiSelect({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[200px] flex-1 justify-between"
         >
           {selectedCountries.length === 0
             ? 'Seleccionar países...'
@@ -414,9 +414,9 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
             className="bg-background fixed right-0 bottom-0 left-0 z-[99999] rounded-t-xl border-t shadow-lg"
           >
             <div className="p-6">
-              <div className="mb-6 flex items-center justify-between">
+              <div className="mb-6 flex items-center justify-between gap-1">
                 <h3 className="text-lg font-semibold">Filtros</h3>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-1 items-center gap-2">
                   {hasActiveFilters && (
                     <Button
                       variant="ghost"
@@ -440,8 +440,10 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
               </div>
 
               <div className="space-y-4 pb-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Departamento</label>
+                <div className="flex items-center gap-4 space-y-2">
+                  <label className="w-24 text-sm font-medium">
+                    Departamento
+                  </label>
                   <Select
                     value={filters.department || 'all'}
                     onValueChange={value =>
@@ -451,7 +453,10 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
                       })
                     }
                   >
-                    <SelectTrigger aria-label="Filtrar por departamento">
+                    <SelectTrigger
+                      aria-label="Filtrar por departamento"
+                      className="flex-1"
+                    >
                       <SelectValue placeholder="Departamento" />
                     </SelectTrigger>
                     <SelectContent>
@@ -475,8 +480,8 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Países</label>
+                <div className="flex items-center gap-4 space-y-2">
+                  <label className="w-24 text-sm font-medium">Países</label>
                   <CountryMultiSelect
                     selectedCountries={filters.countries || []}
                     onCountriesChange={countries =>
@@ -485,8 +490,8 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Estado</label>
+                <div className="flex items-center gap-4 space-y-2">
+                  <label className="w-24 text-sm font-medium">Estado</label>
                   <Select
                     value={filters.status || 'all'}
                     onValueChange={value =>
@@ -496,7 +501,10 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
                       })
                     }
                   >
-                    <SelectTrigger aria-label="Filtrar por estado">
+                    <SelectTrigger
+                      aria-label="Filtrar por estado"
+                      className="flex-1"
+                    >
                       <SelectValue placeholder="Estado" />
                     </SelectTrigger>
                     <SelectContent>
@@ -508,8 +516,10 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Ordenar por</label>
+                <div className="flex items-center gap-4 space-y-2">
+                  <label className="w-24 text-sm font-medium">
+                    Ordenar por
+                  </label>
                   <Select
                     value={filters.sortBy || 'firstName'}
                     onValueChange={value =>
@@ -519,7 +529,7 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
                       })
                     }
                   >
-                    <SelectTrigger aria-label="Ordenar por">
+                    <SelectTrigger aria-label="Ordenar por" className="flex-1">
                       <SelectValue placeholder="Ordenar por" />
                     </SelectTrigger>
                     <SelectContent>
@@ -531,8 +541,8 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Orden</label>
+                <div className="flex items-center gap-4 space-y-2">
+                  <label className="w-24 text-sm font-medium">Orden</label>
                   <Select
                     value={filters.sortOrder || 'asc'}
                     onValueChange={value =>
@@ -542,7 +552,10 @@ function MobileFilters({ filters, onFiltersChange }: EmployeeFiltersProps) {
                       })
                     }
                   >
-                    <SelectTrigger aria-label="Orden de clasificación">
+                    <SelectTrigger
+                      aria-label="Orden de clasificación"
+                      className="flex-1"
+                    >
                       <SelectValue placeholder="Orden" />
                     </SelectTrigger>
                     <SelectContent>
