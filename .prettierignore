@@ -1,0 +1,12 @@
+node_modules
+.next
+out
+dist
+build
+*.log
+.env*
+.DS_Store
+Thumbs.db
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
