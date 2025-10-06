@@ -115,39 +115,47 @@ export default function EmployeesPage() {
   };
 
   return (
-    <>
-      <main className="mx-auto w-full max-w-7xl space-y-4 px-4 py-3 sm:space-y-6 sm:px-6 sm:py-4 lg:px-8 lg:py-6">
+    <div className="min-h-screen w-full overflow-x-hidden">
+      <main className="container mx-auto min-h-screen w-full space-y-4 p-4 sm:space-y-6 sm:p-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex items-center justify-between"
+          className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
         >
-          <div className="flex items-center gap-4">
-            <Link href="/dashboard">
+          <div className="flex flex-col gap-4 sm:min-w-0 sm:flex-1 sm:flex-row sm:items-center">
+            <Link href="/dashboard" className="shrink-0">
               <Button
                 variant="outline"
+                size="sm"
                 className="flex items-center gap-2 border-gray-500 text-gray-700 transition-colors duration-300 ease-in-out hover:bg-gray-100 dark:border-green-300 dark:bg-green-100/10 dark:text-green-200 dark:hover:bg-green-200/20"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Volver al Dashboard
+                <span className="hidden sm:inline">Volver al Dashboard</span>
+                <span className="sm:hidden">Volver</span>
               </Button>
             </Link>
-            <div>
-              <h1 className="text-text-primary text-3xl font-bold">
+            <div className="min-w-0 flex-1">
+              <h1 className="text-text-primary truncate text-xl font-bold sm:text-2xl lg:text-3xl">
                 Lista de Empleados
               </h1>
-              <p className="text-text-secondary">
+              <p className="text-text-secondary text-sm sm:text-base">
                 Administra y organiza la información de tus empleados
               </p>
             </div>
           </div>
-          <Link href="/dashboard/employees/new">
-            <Button className="bg-primary hover:bg-primary-dark flex items-center gap-2 text-white">
-              <Plus className="h-4 w-4" />
-              Nuevo Empleado
-            </Button>
-          </Link>
+          <div className="shrink-0">
+            <Link href="/dashboard/employees/new">
+              <Button
+                size="sm"
+                className="bg-primary hover:bg-primary-dark flex w-full items-center gap-2 text-white sm:w-auto"
+              >
+                <Plus className="h-4 w-4" />
+                <span className="hidden sm:inline">Nuevo Empleado</span>
+                <span className="sm:hidden">Nuevo</span>
+              </Button>
+            </Link>
+          </div>
         </motion.div>
 
         <motion.section
@@ -155,19 +163,23 @@ export default function EmployeesPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           aria-labelledby="employees-title"
+          className="w-full"
         >
-          <Card className="bg-background/80 border-surface-secondary shadow-lg backdrop-blur-sm">
-            <CardHeader className="space-y-2">
+          <Card className="border-surface-secondary bg-background/80 w-full shadow-lg backdrop-blur-sm">
+            <CardHeader className="space-y-2 p-4 sm:p-6">
               <CardTitle
                 id="employees-title"
-                className="flex items-center gap-3 text-xl sm:text-2xl"
+                className="flex items-center gap-3 text-base sm:text-lg lg:text-xl"
               >
-                <div className="from-primary to-primary-dark flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br">
-                  <Users className="h-4 w-4 text-white" aria-hidden="true" />
+                <div className="from-primary to-primary-dark flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br sm:h-8 sm:w-8">
+                  <Users
+                    className="h-3 w-3 text-white sm:h-4 sm:w-4"
+                    aria-hidden="true"
+                  />
                 </div>
-                Directorio de Empleados
+                <span className="truncate">Directorio de Empleados</span>
               </CardTitle>
-              <p className="text-text-secondary text-sm sm:text-base">
+              <p className="text-text-secondary text-xs sm:text-sm">
                 {employees.length}{' '}
                 {employees.length === 1
                   ? 'empleado encontrado'
@@ -175,36 +187,42 @@ export default function EmployeesPage() {
               </p>
             </CardHeader>
 
-            <CardContent className="space-y-6">
-              <EmployeeFiltersComponent
-                filters={filters}
-                onFiltersChange={setFilters}
-              />
+            <CardContent className="space-y-4 p-4 sm:space-y-6 sm:p-6">
+              <div className="w-full">
+                <EmployeeFiltersComponent
+                  filters={filters}
+                  onFiltersChange={setFilters}
+                />
+              </div>
 
               {isLoading && employees.length === 0 ? (
                 <EmployeeSkeleton />
               ) : employees.length === 0 ? (
                 <div className="py-8 text-center">
-                  <div className="bg-surface/50 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-                    <Users className="text-text-secondary h-8 w-8" />
+                  <div className="bg-surface/50 mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full sm:h-16 sm:w-16">
+                    <Users className="text-text-secondary h-6 w-6 sm:h-8 sm:w-8" />
                   </div>
-                  <p className="text-text-secondary mb-4">
+                  <p className="text-text-secondary mb-4 text-sm sm:text-base">
                     No se encontraron empleados
                   </p>
                   <Link href="/dashboard/employees/new">
-                    <Button>
+                    <Button className="w-full sm:w-auto" size="sm">
                       Crear Primer Empleado
                       <Plus className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
                 </div>
               ) : (
-                <>
-                  <EmployeeTable
-                    employees={displayedEmployees}
-                    onDelete={handleDeleteClick}
-                    height={shouldVirtualize ? 600 : undefined}
-                  />
+                <div className="w-full space-y-4">
+                  <div className="w-full overflow-x-auto rounded-lg border">
+                    <div className="min-w-full">
+                      <EmployeeTable
+                        employees={displayedEmployees}
+                        onDelete={handleDeleteClick}
+                        height={shouldVirtualize ? 600 : undefined}
+                      />
+                    </div>
+                  </div>
                   {!shouldVirtualize && totalPages > 1 && (
                     <Pagination
                       currentPage={currentPage}
@@ -219,21 +237,25 @@ export default function EmployeesPage() {
                   )}
                   {shouldVirtualize && (
                     <div className="border-t pt-4">
-                      <div className="flex items-center justify-between">
-                        <p className="text-text-secondary text-sm">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <p className="text-text-secondary text-xs sm:text-sm">
                           Mostrando todos los {employees.length} empleados
                         </p>
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => changePageSize(10)}
+                          className="w-full sm:w-auto"
                         >
-                          Volver a Paginación Normal
+                          <span className="hidden sm:inline">
+                            Volver a Paginación Normal
+                          </span>
+                          <span className="sm:hidden">Paginación Normal</span>
                         </Button>
                       </div>
                     </div>
                   )}
-                </>
+                </div>
               )}
             </CardContent>
           </Card>
@@ -248,6 +270,6 @@ export default function EmployeesPage() {
         onCancel={handleDeleteCancel}
         isPending={isPending}
       />
-    </>
+    </div>
   );
 }

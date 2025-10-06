@@ -35,7 +35,7 @@ export function TypedSelect<T extends string>({
       disabled={disabled}
     >
       <SelectTrigger
-        className={`h-full flex-1 ${error ? 'border-red-500' : ''} ${className || ''} `}
+        className={`h-full w-full ${error ? 'border-red-500' : ''} ${className || ''} `}
       >
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

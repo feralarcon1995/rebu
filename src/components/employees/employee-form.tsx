@@ -351,20 +351,18 @@ export function EmployeeForm({
 
         <div className="grid gap-6 md:grid-cols-2">
           <div className="space-y-2">
-            <div className="rounded-md border border-gray-200 bg-white p-1 dark:border-gray-600 dark:bg-gray-800">
-              <CustomCalendar
-                control={control}
-                name="startDate"
-                label="Fecha de Ingreso"
-                placeholder="Seleccionar fecha de ingreso"
-                days={days}
-                selectedDate={selectedDate}
-                onDateSelect={handleDateSelect}
-                currentMonth={currentMonth}
-                nextMonth={nextMonth}
-                previousMonth={previousMonth}
-              />
-            </div>
+            <CustomCalendar
+              control={control}
+              name="startDate"
+              label="Fecha de Ingreso"
+              placeholder="Seleccionar fecha de ingreso"
+              days={days}
+              selectedDate={selectedDate}
+              onDateSelect={handleDateSelect}
+              currentMonth={currentMonth}
+              nextMonth={nextMonth}
+              previousMonth={previousMonth}
+            />
           </div>
 
           <div className="flex flex-col gap-2 space-y-2">
@@ -415,7 +413,7 @@ export function EmployeeForm({
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2 space-y-2">
             <Label
               htmlFor="city"
               className="font-medium text-gray-700 dark:text-gray-300"
@@ -436,7 +434,7 @@ export function EmployeeForm({
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2 space-y-2">
             <Label
               htmlFor="phone"
               className="font-medium text-gray-700 dark:text-gray-300"
@@ -455,7 +453,7 @@ export function EmployeeForm({
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2 space-y-2">
             <Label
               htmlFor="address"
               className="font-medium text-gray-700 dark:text-gray-300"
@@ -476,7 +474,7 @@ export function EmployeeForm({
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2 space-y-2">
             <Label
               htmlFor="emergencyContact"
               className="font-medium text-gray-700 dark:text-gray-300"
@@ -499,7 +497,7 @@ export function EmployeeForm({
             )}
           </div>
 
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2 space-y-2">
             <Label
               htmlFor="emergencyPhone"
               className="font-medium text-gray-700 dark:text-gray-300"
@@ -551,7 +549,7 @@ export function EmployeeForm({
           </div>
         )}
 
-        <div className="space-y-2">
+        <div className="flex flex-col gap-2 space-y-2">
           <Label
             htmlFor="notes"
             className="font-medium text-gray-700 dark:text-gray-300"

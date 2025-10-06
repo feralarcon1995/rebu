@@ -4,7 +4,7 @@ import { useAuth } from '@/lib/contexts/auth-context';
 import { useTheme } from '@/lib/contexts/theme-context';
 import { LogOut, Menu, Moon, Sun } from 'lucide-react';
 import type React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Sidebar } from './sidebar';
 
 interface DashboardLayoutProps {
@@ -15,6 +15,32 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="from-background via-surface to-surface-secondary flex min-h-screen bg-gradient-to-br">
+        <div className="flex max-h-full min-h-screen w-full flex-col">
+          <header className="border-surface-secondary sticky top-0 z-1 w-full border-b shadow-lg backdrop-blur-md">
+            <nav className="flex h-14 items-center justify-between gap-2 px-3 sm:h-16 sm:gap-4 sm:px-4 lg:px-6">
+              <div className="hidden lg:block" />
+              <div className="flex items-center gap-2 sm:gap-3 lg:gap-4">
+                <div className="hidden max-w-[150px] text-right sm:block lg:max-w-none">
+                  <div className="mb-1 h-4 w-20 animate-pulse rounded bg-gray-300"></div>
+                  <div className="h-3 w-32 animate-pulse rounded bg-gray-200"></div>
+                </div>
+              </div>
+            </nav>
+          </header>
+          <main className="flex-1 overflow-auto">{children}</main>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="from-background via-surface to-surface-secondary flex min-h-screen bg-gradient-to-br">

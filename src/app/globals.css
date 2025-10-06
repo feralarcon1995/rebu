@@ -115,13 +115,13 @@
   --primary: #1fcc69;
   --primary-dark: #1aaf92;
   --primary-darker: #184c44;
-  --background: #0d1510;
-  --background-dim: #0d1510ad;
-  --surface: #1a2a1a;
-  --surface-secondary: #243324;
-  --text-primary: #f0f8f0;
-  --text-secondary: #c8d8c8;
-  --text-muted: #9bb09b;
+  --background: #0c2217;
+  --background-dim: #0c2217ad;
+  --surface: #184c44;
+  --surface-secondary: #1a5f4a;
+  --text-primary: #f0f0f0;
+  --text-secondary: #c0c0c0;
+  --text-muted: #909090;
   --overlay: #00000066;
   --overlay-dark: #0c221733;
   --shadow-sm: #00000033;
@@ -135,7 +135,7 @@
   --card-foreground: var(--text-primary);
   --popover: var(--surface);
   --popover-foreground: var(--text-primary);
-  --primary-foreground: var(--black);
+  --primary-foreground: var(--white);
   --secondary: var(--surface-secondary);
   --secondary-foreground: var(--text-primary);
   --muted: var(--surface-secondary);
@@ -143,22 +143,10 @@
   --accent: var(--surface-secondary);
   --accent-foreground: var(--text-primary);
   --destructive: #ef4444;
+  --destructive-foreground: var(--text-primary);
   --border: var(--surface-secondary);
   --input: var(--surface-secondary);
   --ring: var(--primary);
-  --chart-1: var(--primary);
-  --chart-2: var(--primary-dark);
-  --chart-3: var(--primary-darker);
-  --chart-4: var(--green-alpha);
-  --chart-5: var(--text-secondary);
-  --sidebar: var(--surface);
-  --sidebar-foreground: var(--text-primary);
-  --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--black);
-  --sidebar-accent: var(--surface-secondary);
-  --sidebar-accent-foreground: var(--text-primary);
-  --sidebar-border: var(--surface-secondary);
-  --sidebar-ring: var(--primary);
 }
 
 @layer base {
@@ -170,7 +158,6 @@
     @apply bg-background text-foreground;
   }
 
-  /* Transiciones específicas para elementos interactivos */
   button,
   [role='button'],
   .btn,
@@ -185,22 +172,16 @@
       box-shadow 0.2s ease;
   }
 
-  /* Transiciones suaves para colores del tema */
   html {
+    transition: background-color 0.3s ease;
+  }
+
+  body {
     transition:
-      background-color 0.5s ease,
-      color 0.5s ease;
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
-  body,
-  * {
-    transition-property:
-      background-color, border-color, color, fill, stroke, opacity, box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.5s;
-  }
-
-  /* Evitar transiciones en animaciones de framer-motion */
   [data-framer-motion] {
     transition: none !important;
   }
@@ -260,7 +241,7 @@
 
   .logo-adaptive {
     filter: var(--logo-filter-light);
-    transition: filter 0.5s ease;
+    transition: filter 0.3s ease;
   }
 
   .dark .logo-adaptive {

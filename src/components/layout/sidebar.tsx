@@ -44,7 +44,7 @@ export function Sidebar({ isOpen, onToggle }: SidebarProps) {
         className={`from-primary-darker to-primary-dark fixed top-0 left-0 z-2 h-full w-64 bg-gradient-to-b sm:w-72 lg:sticky lg:top-0 lg:z-auto lg:w-64 lg:translate-x-0 xl:w-72 ${isOpen ? 'translate-x-0' : '-translate-x-full'} flex max-h-full min-h-screen flex-col transition-transform duration-300 ease-in-out`}
         aria-label="Navegación principal"
       >
-        <header className="border-primary/20 flex shrink-0 items-center justify-between border-b p-4 sm:p-5 lg:p-6">
+        <header className="border-primary/20 flex shrink-0 items-center justify-between border-b p-3.5">
           <Link
             href="/dashboard"
             className="flex items-center gap-2 sm:gap-3"

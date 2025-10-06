@@ -142,9 +142,9 @@ export function CustomCalendar<TFormValues extends FieldValues>({
                 <Button
                   variant="outline"
                   className={cn(
-                    'border-surface-secondary bg-background text-text-primary h-11 w-full justify-start text-left font-normal',
-                    !selectedDate && 'text-text-secondary',
-                    field.value && 'border-surface-secondary'
+                    'h-11 w-full justify-start border-gray-200 bg-white text-left font-normal text-gray-900 focus:bg-white dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-800',
+                    !selectedDate && 'text-gray-500 dark:text-gray-400',
+                    field.value && 'border-gray-200 dark:border-gray-600'
                   )}
                 >
                   {selectedDate
