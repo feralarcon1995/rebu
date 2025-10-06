@@ -87,7 +87,7 @@ function CountryMultiSelect({
               <div
                 key={country.code}
                 className="hover:bg-accent flex cursor-pointer items-center space-x-2 rounded-sm p-1"
-                onClick={() => handleCountryToggle(country.name)}
+                onClick={() => handleCountryToggle(country.code)}
               >
                 <Checkbox
                   checked={selectedCountries.includes(country.name)}
