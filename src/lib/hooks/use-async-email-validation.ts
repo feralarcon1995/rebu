@@ -14,6 +14,8 @@ export function useAsyncEmailValidation() {
       setIsValidating(true);
 
       try {
+        await new Promise(resolve => setTimeout(resolve, 500));
+
         const exists = await checkEmailExists(email, excludeId);
         return exists ? 'Este email ya está registrado' : undefined;
       } catch {

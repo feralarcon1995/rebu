@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useVirtualization } from '@/lib/hooks/use-virtualization';
 import type { Employee } from '@/lib/types/employee';
 import {
   formatDate,
@@ -19,19 +20,29 @@ import {
 import { motion } from 'framer-motion';
 import { Eye, Pencil, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { VirtualizedEmployeeTable } from './virtualized-employee-table';
 
 interface EmployeeTableProps {
   employees: Employee[];
   onDelete?: (id: string) => void;
   showActions?: boolean;
+  height?: number;
 }
 
 export function EmployeeTable({
   employees,
   onDelete,
   showActions = true,
+  height,
 }: EmployeeTableProps) {
   const router = useRouter();
+  const { shouldVirtualize, virtualHeight } = useVirtualization(
+    employees.length,
+    {
+      threshold: 500,
+      height: height || 600,
+    }
+  );
 
   const handleViewEmployee = (id: string) => {
     router.push(`/dashboard/employees/${id}`);
@@ -47,6 +58,17 @@ export function EmployeeTable({
       >
         <p className="text-text-secondary">No se encontraron empleados</p>
       </motion.div>
+    );
+  }
+
+  if (shouldVirtualize) {
+    return (
+      <VirtualizedEmployeeTable
+        employees={employees}
+        onDelete={onDelete}
+        showActions={showActions}
+        height={virtualHeight}
+      />
     );
   }
 

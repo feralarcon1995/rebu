@@ -5,12 +5,12 @@ import { EmployeeFiltersComponent } from '@/components/employees/employee-filter
 import { EmployeeSkeleton } from '@/components/employees/employee-skeleton';
 import { EmployeeTable } from '@/components/employees/employee-table';
 import { Pagination } from '@/components/employees/pagination';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useDebounce } from '@/lib/hooks/use-debounce';
 import { useEmployees } from '@/lib/hooks/use-employees';
 import { usePagination } from '@/lib/hooks/use-pagination';
+import { useVirtualization } from '@/lib/hooks/use-virtualization';
 import type { Employee, EmployeeFilters } from '@/lib/types/employee';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Plus, Users } from 'lucide-react';
@@ -42,11 +42,19 @@ export default function EmployeesPage() {
   const {
     currentPage,
     totalPages,
+    pageSize,
     paginatedItems,
     goToPage,
+    changePageSize,
     hasNextPage,
     hasPreviousPage,
   } = usePagination(employees, 10);
+
+  const { shouldVirtualize } = useVirtualization(pageSize, {
+    threshold: 50,
+  });
+
+  const displayedEmployees = shouldVirtualize ? employees : paginatedItems;
 
   useEffect(() => {
     const filtersWithDebouncedSearch = {
@@ -107,7 +115,7 @@ export default function EmployeesPage() {
   };
 
   return (
-    <DashboardLayout>
+    <>
       <main className="mx-auto w-full max-w-7xl space-y-4 px-4 py-3 sm:space-y-6 sm:px-6 sm:py-4 lg:px-8 lg:py-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -193,17 +201,37 @@ export default function EmployeesPage() {
               ) : (
                 <>
                   <EmployeeTable
-                    employees={paginatedItems}
+                    employees={displayedEmployees}
                     onDelete={handleDeleteClick}
+                    height={shouldVirtualize ? 600 : undefined}
                   />
-                  {totalPages > 1 && (
+                  {!shouldVirtualize && totalPages > 1 && (
                     <Pagination
                       currentPage={currentPage}
                       totalPages={totalPages}
+                      pageSize={pageSize}
+                      totalItems={employees.length}
                       onPageChange={goToPage}
+                      onPageSizeChange={changePageSize}
                       hasNextPage={hasNextPage}
                       hasPreviousPage={hasPreviousPage}
                     />
+                  )}
+                  {shouldVirtualize && (
+                    <div className="border-t pt-4">
+                      <div className="flex items-center justify-between">
+                        <p className="text-text-secondary text-sm">
+                          Mostrando todos los {employees.length} empleados
+                        </p>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => changePageSize(10)}
+                        >
+                          Volver a Paginación Normal
+                        </Button>
+                      </div>
+                    </div>
                   )}
                 </>
               )}
@@ -220,6 +248,6 @@ export default function EmployeesPage() {
         onCancel={handleDeleteCancel}
         isPending={isPending}
       />
-    </DashboardLayout>
+    </>
   );
 }
